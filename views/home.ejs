@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EJS</title>
+  </head>
+  <body>
+    <h1>Welcome from Server-Side Rendering.</h1>
+    <h2>URL Shortening Service</h2>
+    <div>
+      <form method="post" action="/url">
+        <label
+          style="
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: 500;
+          "
+          >Enter Your Original URL</label
+        >
+        <input type="text" name="url" placeholder="https://google.com" /><br>
+        <button type="submit">Generate</button>
+      </form>
+    </div>      
+    <!-- locals = backend data (back-end variable) -->
+     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-weight: 500;">
+        <% if (locals.id) { %>
+            <p>Short URL Generated : http://localhost:7001/url/<%= id %></p>
+           <% } %>
+     </div><br>
+     <div>
+        <% if (locals.result) { %>
+         <table style="border: 1px solid;  border-collapse: collapse; text-align: center;">
+            <thead>
+                <th>S. No</th>
+                <th>Original URL</th>
+                <th>Short Id</th>
+                <th>Total Clicks</th>
+            </thead>
+            <tbody>
+                <% result.forEach((res, index) => { %>
+                <tr>
+                    <td><%= index + 1 %></td>       
+                    <td><%= res.redirectedUrl %></td>
+                    <td><%= res.shortId %></td>
+                    <td><%= res.visitHistory.length %></td>
+                </tr>
+                <% }) %>
+            </tbody>
+         </table>
+        <% } %>
+     </div>
+  </body>
+</html>
